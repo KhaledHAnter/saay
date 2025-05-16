@@ -5,8 +5,6 @@ import 'package:saay/saay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final Brightness systemBrightness =
-      WidgetsBinding.instance.platformDispatcher.platformBrightness;
-  await setupGetIt(systemBrightness);
+  await setupGetIt();
   runApp(Saay(appRouter: AppRouter()));
 }

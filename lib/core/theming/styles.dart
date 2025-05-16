@@ -33,6 +33,4 @@ class Styles {
     color: Theme.of(context).colorScheme.primary,
     fontFamily: arabicFontFamily,
   );
-
-  // أضف المزيد من الأنماط حسب الحاجة مع تمرير context
 }

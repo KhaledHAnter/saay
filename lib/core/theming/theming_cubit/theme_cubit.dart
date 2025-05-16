@@ -5,42 +5,50 @@ import 'package:saay/core/theming/app_themes.dart';
 
 part 'theme_state.dart';
 
+enum AppThemeMode { system, light, dark }
+
 class ThemeCubit extends Cubit<ThemeState> {
-  static const _key = 'isDarkMode';
+  static const _key = 'themeMode';
 
-  ThemeCubit()
-    : super(ThemeState(themeData: AppTheme.lightTheme, isDarkMode: false));
+  ThemeCubit() : super(const ThemeState(mode: ThemeMode.system));
 
-  Future<void> loadTheme(Brightness platformBrightness) async {
-    final isDark = await SharedPrefHelper.getBool(_key);
+  Future<void> loadThemeFromSystem(BuildContext context) async {
+    final savedValue = await SharedPrefHelper.getString(_key);
 
-    if (isDark == null) {
-      final defaultDark = platformBrightness == Brightness.dark;
-      await SharedPrefHelper.setData(_key, defaultDark);
-      emit(
-        ThemeState(
-          themeData: defaultDark ? AppTheme.darkTheme : AppTheme.lightTheme,
-          isDarkMode: defaultDark,
-        ),
-      );
+    ThemeMode selectedMode;
+
+    if (savedValue.isEmpty) {
+      // First time run → default to system
+      selectedMode = ThemeMode.system;
     } else {
-      emit(
-        ThemeState(
-          themeData: isDark ? AppTheme.darkTheme : AppTheme.lightTheme,
-          isDarkMode: isDark,
-        ),
+      selectedMode = ThemeMode.values.firstWhere(
+        (e) => e.name == savedValue,
+        orElse: () => ThemeMode.system,
       );
     }
+
+    emit(ThemeState(mode: selectedMode));
   }
 
   Future<void> toggleTheme() async {
-    final newIsDark = !state.isDarkMode;
-    await SharedPrefHelper.setData(_key, newIsDark);
-    emit(
-      ThemeState(
-        themeData: newIsDark ? AppTheme.darkTheme : AppTheme.lightTheme,
-        isDarkMode: newIsDark,
-      ),
-    );
+    final isCurrentlyDark = state.mode == ThemeMode.dark;
+
+    final newMode = isCurrentlyDark ? ThemeMode.light : ThemeMode.dark;
+
+    await SharedPrefHelper.setData(_key, newMode.name);
+    emit(ThemeState(mode: newMode));
+  }
+
+  ThemeData getCurrentTheme(Brightness platformBrightness) {
+    switch (state.mode) {
+      case ThemeMode.light:
+        return AppTheme.lightTheme;
+      case ThemeMode.dark:
+        return AppTheme.darkTheme;
+      case ThemeMode.system:
+        return platformBrightness == Brightness.dark
+            ? AppTheme.darkTheme
+            : AppTheme.lightTheme;
+    }
   }
 }
