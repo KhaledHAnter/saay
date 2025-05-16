@@ -79,7 +79,9 @@ class _SplashScreenState extends State<SplashScreen>
                   position: _textSlideAnimation,
                   child: Text(
                     'وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ',
-                    style: Styles.font16SemiBold,
+                    style: Styles.font16SemiBold(
+                      context,
+                    ).copyWith(color: Colors.white),
                   ),
                 ),
               ],
