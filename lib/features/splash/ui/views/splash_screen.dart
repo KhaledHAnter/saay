@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saay/core/helpers/assets.dart';
 import 'package:saay/core/theming/styles.dart';
+import 'package:saay/core/theming/theming_cubit/theme_cubit.dart';
 import 'package:saay/features/home/ui/views/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -47,6 +49,17 @@ class _SplashScreenState extends State<SplashScreen>
         );
       }
     });
+  }
+
+  bool _isThemeLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isThemeLoaded) {
+      context.read<ThemeCubit>().loadThemeFromSystem(context);
+      _isThemeLoaded = true;
+    }
   }
 
   @override
