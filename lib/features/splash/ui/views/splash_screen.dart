@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saay/core/helpers/assets.dart';
 import 'package:saay/core/theming/styles.dart';
 import 'package:saay/features/home/ui/views/home_screen.dart';
@@ -15,6 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation<Offset> _textSlideAnimation;
   late Animation<double> _animation;
 
   @override
@@ -31,12 +33,19 @@ class _SplashScreenState extends State<SplashScreen>
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
+    _textSlideAnimation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const HomeScreen()));
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      }
     });
   }
 
@@ -48,6 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: const Color(0xFF3A7CA5),
       body: Center(
@@ -59,11 +69,18 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Spacer(),
-                Image.asset(Assets.imagesAppIcon),
+                SvgPicture.asset(
+                  Assets.imagesAppIconSvg,
+                  height: width / 1.5,
+                  width: width / 1.5,
+                ),
                 Spacer(),
-                Text(
-                  'وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ',
-                  style: Styles.font16SemiBold,
+                SlideTransition(
+                  position: _textSlideAnimation,
+                  child: Text(
+                    'وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ',
+                    style: Styles.font16SemiBold,
+                  ),
                 ),
               ],
             ),
