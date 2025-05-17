@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.8
+  easy_localization: ^3.0.7+1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -41,6 +42,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/langs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

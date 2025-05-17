@@ -30,8 +30,14 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(ThemeState(mode: selectedMode));
   }
 
-  Future<void> toggleTheme() async {
-    final isCurrentlyDark = state.mode == ThemeMode.dark;
+  Future<void> toggleTheme(BuildContext context) async {
+    // الوضع اللي عايشه الشاشة حاليًا (فعليًا)
+    final brightness = MediaQuery.of(context).platformBrightness;
+
+    // استخدم الحالة المحفوظة إن وجدت، أو الوضع الفعلي من النظام
+    final isCurrentlyDark =
+        state.mode == ThemeMode.dark ||
+        (state.mode == ThemeMode.system && brightness == Brightness.dark);
 
     final newMode = isCurrentlyDark ? ThemeMode.light : ThemeMode.dark;
 

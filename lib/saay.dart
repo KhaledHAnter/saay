@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saay/core/di/dependency_injection.dart';
@@ -16,14 +17,20 @@ class Saay extends StatelessWidget {
       value: sl<ThemeCubit>(),
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Saay",
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: state.mode, // ← magic here
-            initialRoute: Routes.splashScreen,
-            onGenerateRoute: appRouter.generateRoute,
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              debugShowCheckedModeBanner: false,
+              title: "Saay",
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: state.mode, // ← magic here
+              initialRoute: Routes.splashScreen,
+              onGenerateRoute: appRouter.generateRoute,
+            ),
           );
         },
       ),
