@@ -7,6 +7,7 @@ import 'package:saay/core/helpers/constants.dart';
 import 'package:saay/core/helpers/shared_prefernce_helper.dart';
 import 'package:saay/core/theming/styles.dart';
 import 'package:saay/core/theming/theming_cubit/theme_cubit.dart';
+import 'package:saay/core/widgets/app_text.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,6 +33,21 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    text: AppStrings.homeScreenTitle,
+                    style: Styles.font16SemiBold(context),
+                  ),
+                  Gap(10),
+                  AppText(
+                    text: AppStrings.appVersion,
+                    style: Styles.font16SemiBold(context),
+                  ),
+                ],
+              ),
+              Gap(20),
               Text(
                 AppStrings.homeScreenTitle.tr(),
                 style: Styles.font16SemiBold(context),

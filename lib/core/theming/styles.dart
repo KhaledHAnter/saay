@@ -26,6 +26,18 @@ class Styles {
     color: Theme.of(context).colorScheme.onSurface,
     fontFamily: arabicFontFamily,
   );
+  static TextStyle font14Bold(BuildContext context) => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeightsHelper.bold,
+    color: Theme.of(context).colorScheme.primary,
+    fontFamily: arabicFontFamily,
+  );
+  static TextStyle font13Medium(BuildContext context) => TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeightsHelper.medium,
+    color: Theme.of(context).colorScheme.primary,
+    fontFamily: arabicFontFamily,
+  );
 
   static TextStyle font18Bold(BuildContext context) => TextStyle(
     fontSize: 18,

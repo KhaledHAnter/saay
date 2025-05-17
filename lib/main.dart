@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:saay/core/di/dependency_injection.dart';
+import 'package:saay/core/global/global.dart';
 import 'package:saay/core/helpers/constants.dart';
 import 'package:saay/core/helpers/shared_prefernce_helper.dart';
 import 'package:saay/core/routing/app_router.dart';
@@ -21,6 +22,7 @@ void main() async {
 
     await SharedPrefHelper.setData(langCacheKey, fallbackLang);
     langFromStorage = fallbackLang;
+    Global.langCode = langFromStorage;
   }
   runApp(
     EasyLocalization(
