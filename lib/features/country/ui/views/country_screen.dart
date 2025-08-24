@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:saay/core/global/global.dart';
 import 'package:saay/core/helpers/app_strings.dart';
 import 'package:saay/features/country/ui/widgets/country_headers.dart';
 
@@ -58,7 +57,14 @@ class _CountryScreenState extends State<CountryScreen> {
                         SizedBox(height: 20.h),
                         ElevatedButton(
                           onPressed: _resetCounter,
-                          child: Text(AppStrings.reset.tr()),
+                          child: Text(
+                            AppStrings.reset.tr(),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            key: ValueKey(context.locale.languageCode),
+                          ),
                         ),
                       ],
                     ),
