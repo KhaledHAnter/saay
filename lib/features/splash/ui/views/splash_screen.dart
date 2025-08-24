@@ -32,9 +32,10 @@ class _SplashScreenState extends State<SplashScreen>
     if (!mounted) return;
 
     context.pushReplacementNamed(
-      country == null || country.isEmpty
-          ? Routes.countryScreen
-          : Routes.homeScreen,
+      Routes.countryScreen,
+      // country == null || country.isEmpty
+      //     ? Routes.countryScreen
+      //     : Routes.homeScreen,
     );
   }
 

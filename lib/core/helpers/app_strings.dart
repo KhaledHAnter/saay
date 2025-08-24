@@ -14,4 +14,5 @@ class AppStrings {
   static const String english = "English";
 
   static const String selectYourCountry = "Select your country";
+  static const String reset = "Reset";
 }
