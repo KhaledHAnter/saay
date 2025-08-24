@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saay/core/di/dependency_injection.dart';
 import 'package:saay/core/routing/app_router.dart';
 import 'package:saay/core/routing/routes.dart';
@@ -19,17 +20,22 @@ class Saay extends StatelessWidget {
         builder: (context, state) {
           return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: MaterialApp(
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              debugShowCheckedModeBanner: false,
-              title: "Saay",
-              theme: AppTheme.lightTheme,
-              darkTheme: AppTheme.darkTheme,
-              themeMode: state.mode, // ← magic here
-              initialRoute: Routes.splashScreen,
-              onGenerateRoute: appRouter.generateRoute,
+            child: ScreenUtilInit(
+              designSize: const Size(375, 812),
+              builder: (_, child) {
+                return MaterialApp(
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  debugShowCheckedModeBanner: false,
+                  title: "Saay",
+                  theme: AppTheme.lightTheme,
+                  darkTheme: AppTheme.darkTheme,
+                  themeMode: state.mode,
+                  initialRoute: Routes.splashScreen,
+                  onGenerateRoute: appRouter.generateRoute,
+                );
+              },
             ),
           );
         },

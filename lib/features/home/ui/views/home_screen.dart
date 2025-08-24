@@ -37,12 +37,12 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText(
-                    text: AppStrings.homeScreenTitle,
+                    AppStrings.homeScreenTitle,
                     style: Styles.font16SemiBold(context),
                   ),
                   Gap(10),
                   AppText(
-                    text: AppStrings.appVersion,
+                    AppStrings.appVersion,
                     style: Styles.font16SemiBold(context),
                   ),
                 ],

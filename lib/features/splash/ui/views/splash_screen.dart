@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saay/core/helpers/assets.dart';
+import 'package:saay/core/helpers/constants.dart';
+import 'package:saay/core/helpers/extentions.dart';
+import 'package:saay/core/helpers/shared_prefernce_helper.dart';
+import 'package:saay/core/routing/routes.dart';
 import 'package:saay/core/theming/styles.dart';
 import 'package:saay/core/theming/theming_cubit/theme_cubit.dart';
-import 'package:saay/features/home/ui/views/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +24,19 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<Offset> _textSlideAnimation;
   late Animation<double> _animation;
+
+  void _navigateAfterSplash() async {
+    final String? country = await SharedPrefHelper.getString(countryCacheKey);
+    log('country: $country');
+
+    if (!mounted) return;
+
+    context.pushReplacementNamed(
+      country == null || country.isEmpty
+          ? Routes.countryScreen
+          : Routes.homeScreen,
+    );
+  }
 
   @override
   void initState() {
@@ -42,19 +59,13 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
-        );
-      }
-    });
+    Future.delayed(const Duration(seconds: 3), () => _navigateAfterSplash());
   }
 
   bool _isThemeLoaded = false;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
     if (!_isThemeLoaded) {
       context.read<ThemeCubit>().loadThemeFromSystem(context);

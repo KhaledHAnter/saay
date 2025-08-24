@@ -156,10 +156,10 @@ class AppText extends StatelessWidget {
   final TextDirection? textDirection;
   final TrimMode? trimMode;
   final TextOverflow? overflow;
-  const AppText({
+  const AppText(
+    this.text, {
     super.key,
     this.trimLines,
-    required this.text,
     this.textAlign,
     this.maxLines,
     this.decoration,

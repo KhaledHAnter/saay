@@ -45,4 +45,11 @@ class Styles {
     color: Theme.of(context).colorScheme.primary,
     fontFamily: arabicFontFamily,
   );
+
+  static TextStyle font48Bold(BuildContext context) => TextStyle(
+    fontSize: 48,
+    fontWeight: FontWeightsHelper.bold,
+    color: Theme.of(context).colorScheme.onSurface,
+    fontFamily: arabicFontFamily,
+  );
 }

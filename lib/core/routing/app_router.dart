@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saay/core/routing/routes.dart';
+import 'package:saay/features/country/ui/views/country_screen.dart';
 import 'package:saay/features/home/ui/views/home_screen.dart';
 import 'package:saay/features/splash/ui/views/splash_screen.dart';
 
@@ -11,6 +12,8 @@ class AppRouter {
     switch (settings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case Routes.countryScreen:
+        return MaterialPageRoute(builder: (_) => const CountryScreen());
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 

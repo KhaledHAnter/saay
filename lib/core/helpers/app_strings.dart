@@ -9,4 +9,9 @@ class AppStrings {
   static const String changeTheme = "Change theme";
 
   static const String changeLanguage = "Change Language";
+
+  static const String arabic = "العربيه";
+  static const String english = "English";
+
+  static const String selectYourCountry = "Select your country";
 }
